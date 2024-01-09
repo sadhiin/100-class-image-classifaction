@@ -1,0 +1,2 @@
+INIT: # a dymmy initialization to avoid empty error
+  path: . 

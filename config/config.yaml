@@ -1,0 +1,19 @@
+artifacts_root: artifacts
+
+data_ingestion:
+  root_dir: artifacts/data_ingestion
+  source_url: https://www.kaggle.com/datasets/gpiosenka/sports-classification
+  # source_url: https://www.kaggle.com/datasets/gpiosenka/headgear-image-classification
+  # source_url: https://www.kaggle.com/datasets/gpiosenka/100-bird-species
+  # source_url: https://www.kaggle.com/datasets/pavansanagapati/images-dataset
+  # source_url: https://www.kaggle.com/datasets/gpiosenka/balls-image-classification
+  local_data_file: artifacts/data
+
+prepare_base_model:
+  root_dir: artifacts/base_model
+  base_model_path: artifacts/base_model/base_model.keras
+  model: artifacts/base_model/.keras
+
+model_training:
+  root_dir: artifacts/training
+  trained_model_path: artifacts/training/trained_model.keras

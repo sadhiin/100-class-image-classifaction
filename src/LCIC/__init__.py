@@ -3,11 +3,7 @@ import sys
 import logging
 import time
 
-DATASET_1: str = "https://www.kaggle.com/datasets/gpiosenka/sports-classification"
-DATASET_2: str = "https://www.kaggle.com/datasets/gpiosenka/headgear-image-classification"
-DATASET_3: str = "https://www.kaggle.com/datasets/gpiosenka/100-bird-species"
-DATASET_4: str = "https://www.kaggle.com/datasets/pavansanagapati/images-dataset"
-DATASET_5: str = "https://www.kaggle.com/datasets/gpiosenka/balls-image-classification"
+
 
 logging_str = "[%(asctime)s]: %(levelname)s: %(module)s: %(message)s"
 log_dir = "logs"
