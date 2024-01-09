@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 
 __version__ = "0.0.1"
 
-REPO_NAME = "Large-Class-Image-Classification"
+REPO_NAME = "100(Large)-Class-Image-Classification"
 AUTHOOR_NAME = "Sadhin"
 SRC_REPO = "large-class-image-classification"
 AUTHOR_EMAIL = "sadhin.aiub.cse@gmail.com"
