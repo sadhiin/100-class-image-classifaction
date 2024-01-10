@@ -21,16 +21,3 @@ class DataIngestionPipeline:
             logger.error(e)
             raise e
 
-
-if __name__ == "__main__":
-    try:
-        logger.info(f">>>>>>>>> At stage {STAGE_NAME} started <<<<<<<<<")
-        obj = DataIngestionPipeline()
-       
-        logger.info(f"Downloading data from internet")
-        obj.run()
-    
-        logger.info(f">>>>>>>>>>>>>>>> stage {STAGE_NAME} completed <<<<<<<<<<<<<<<<<<<\n\nx========================x\n\n")
-    except Exception as e:
-        logger.error(e)
-        raise e
