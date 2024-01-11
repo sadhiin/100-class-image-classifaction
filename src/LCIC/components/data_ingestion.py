@@ -1,3 +1,6 @@
+from LCIC import logger
+import opendatasets as od
+from LCIC.entity.data_ingestion_config import DataIngestionConfig
 class DataIngestion:
 
     def __init__(self, config: DataIngestionConfig):

@@ -10,7 +10,7 @@ data_ingestion:
   local_data_file: artifacts/data
 
 data_preporcess:
-  path: "" 
+  path: ""
   rescale: 1./255
   shear_range: 0.2
   zoom_range: 0.2
@@ -20,6 +20,7 @@ data_preporcess:
   validation_split: 0.2
   fill_mode: nearest
   batch_size: 16
+  seed: 42
 
 
 

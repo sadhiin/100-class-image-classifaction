@@ -1,6 +1,5 @@
 import os
 import yaml
-import joblib
 import json
 import base64
 from typing import Any
@@ -39,8 +38,8 @@ def read_yaml(path_to_yaml: Path) -> ConfigBox:
         path_to_yaml (str): path like input
     Raise:
         ValueError: if yaml file is empty
-        e: empty file 
-    :return: 
+        e: empty file
+    :return:
         ConfigBox: ConfigBox type
     """
 
