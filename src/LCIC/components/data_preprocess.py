@@ -1,7 +1,7 @@
 import tensorflow as tf
 from LCIC import logger
-from LCIC.utils.common import read_yaml
 from LCIC.constants import *
+from LCIC.utils.common import read_yaml
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from LCIC.entity.data_prep_entity import PreprocessConfig
 
@@ -54,5 +54,7 @@ class DataPreprocessing():
             interpolation='nearest',
             subset="validation"
         )
-
+        """
+        have to desing the class indexs of the dataset and save it in the config file.
+        """
         return training_set, validation_set
