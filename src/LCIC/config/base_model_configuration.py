@@ -7,16 +7,19 @@ from LCIC.entity.base_model_entity import BaseModelConfig
 
 class BaseModelConfigurationManager:
     def __init__(self,
-                 model_name: str = "",
+                 model_name: str = None,
                  config_path: Path = CONFIG_FILE_PATH,
                  params_path: Path = PARAMS_FILE_PATH):
         if model_name == "" or model_name is None:
-            model_name = input("Enter the model name (all lower-case): ")
+            model_name = input("Enter the model name (all lower-case)| \nEx: vgg16, resnet50, efficientnetb6: ")
         # for selecting different pretrained models
-        self.model_name = model_name.upper()
+        self.model_name = model_name
+        print("Selected model name: ",self.model_name)
         self.config = read_yaml(config_path)
         # only the specified model configuration it will take.
-        self.params = read_yaml(params_path)[self.model_name]
+        self.params = read_yaml(params_path)[self.model_name[0]]
+        # self.params = self.params[{model_name}]
+
 
         create_directories([self.config.artifacts_root])
         logger.info(

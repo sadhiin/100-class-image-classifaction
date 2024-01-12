@@ -1,6 +1,6 @@
-from src.LCIC import logger
-from src.LCIC.components.data_ingestion import DataIngestion
-from src.LCIC.config.configuration import ConfigurationManager
+from LCIC import logger
+from LCIC.components.data_ingestion import DataIngestion
+from LCIC.config.configuration import ConfigurationManager
 
 
 STAGE_NAME = "Data Ingestion stage"
@@ -25,14 +25,14 @@ class DataIngestionPipeline:
             raise e
 
 
-# if __name__ == "__main__":
-#     try:
-#         logger.info(f"*******************************************")
-#         logger.info(f">>>>>>>>>>>>>>> stage {STAGE_NAME} <<<<<<<<<<<<<<<")
-#         obj = DataIngestionPipeline()
-#         obj.run()
-#         logger.info(
-#             f">>>>>>>>>>>>>>>> stage {STAGE_NAME} completed <<<<<<<<<<<<<<<<<<<\n\nx========================x\n\n")
-#     except Exception as e:
-#         logger.error(f"Error in stage: {STAGE_NAME} \n {e}")
-#         raise e
+if __name__ == "__main__":
+    try:
+        logger.info(f"*******************************************")
+        logger.info(f">>>>>>>>>>>>>>> stage {STAGE_NAME} <<<<<<<<<<<<<<<")
+        obj = DataIngestionPipeline()
+        obj.run()
+        logger.info(
+            f">>>>>>>>>>>>>>>> stage {STAGE_NAME} completed <<<<<<<<<<<<<<<<<<<\n\nx========================x\n\n")
+    except Exception as e:
+        logger.error(f"Error in stage: {STAGE_NAME} \n {e}")
+        raise e

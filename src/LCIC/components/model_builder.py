@@ -18,39 +18,39 @@ class PrepareBaseModel:
         This function is reposible for loading the pretrained model, which is specified in the config file.
         Also set the class model variable.
         """
-        if self.config.pretrained_model == "VGG16".upper():
+        if self.config.pretrained_model == "VGG16":
             self.model = tf.keras.applications.vgg16.VGG16(
                 input_shape=self.config.params_image_size,
                 weights=self.config.params_weights,
                 include_top=self.config.params_include_top
             )
-        elif self.config.pretrained_model == "EFFICIENTNETB2".upper():
+        elif self.config.pretrained_model == "EFFICIENTNETB2":
             self.model = tf.keras.applications.efficientnet.EfficientNetB2(
                 input_shape=self.config.params_image_size,
                 weights=self.config.params_weights,
                 include_top=self.config.params_include_top
             )
 
-        elif self.config.pretrained_model == "EFFICIENTNETB6".upper():
+        elif self.config.pretrained_model == "EFFICIENTNETB6":
             self.model = tf.keras.applications.efficientnet.EfficientNetB2(
                 input_shape=self.config.params_image_size,
                 weights=self.config.params_weights,
                 include_top=self.config.params_include_top
             )
 
-        elif self.config.pretrained_model == "INCEPTIONV3".upper():
+        elif self.config.pretrained_model == "INCEPTIONV3":
             self.model = tf.keras.applications.inception_v3.InceptionV3(
                 input_shape=self.config.params_image_size,
                 weights=self.config.params_weights,
                 include_top=self.config.params_include_top
             )
-        elif self.config.pretrained_model == "RESNET101".upper():
+        elif self.config.pretrained_model == "RESNET101":
             self.model = tf.keras.applications.resnet.ResNet101(
                 input_shape=self.config.params_image_size,
                 weights=self.config.params_weights,
                 include_top=self.config.params_include_top
             )
-        elif self.config.pretrained_model == "DENSENET169".upper():
+        elif self.config.pretrained_model == "DENSENET169":
             self.model = tf.keras.applications.densenet.DenseNet169(
                 input_shape=self.config.params_image_size,
                 weights=self.config.params_weights,

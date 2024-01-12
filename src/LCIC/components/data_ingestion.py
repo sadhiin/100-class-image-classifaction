@@ -1,6 +1,7 @@
 from LCIC import logger
 import opendatasets as od
-from LCIC.entity.data_ingestion_config import DataIngestionConfig
+from LCIC.entity.data_config_entity import DataIngestionConfig
+
 class DataIngestion:
 
     def __init__(self, config: DataIngestionConfig):
@@ -16,7 +17,7 @@ class DataIngestion:
             download_url = self.config.source_url
             save_at = self.config.local_data_file
             logger.info(f"Downloading dataset form {download_url}")
-            od.download(dataset_id_or_url=download_url, data_dir=save_at,dry_run=True)
+            od.download(dataset_id_or_url=download_url, data_dir=save_at, dry_run=False)
             logger.info(f"Successfully saved at {save_at}")
         except Exception as e:
             logger.error(f"Error in downloading data. {e}")

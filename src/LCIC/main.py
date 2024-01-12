@@ -1,10 +1,9 @@
 from LCIC import logger
 from LCIC.pipeline.stage_01_data_ingestion import DataIngestionPipeline
-# from LCIC.pipeline.stage_03_model_training import DataPreprocessingPipeline
-# from LCIC.pipeline.stage_02_base_model_building import ModelBuildingPipeline
-
 from LCIC.pipeline.stage_02_base_model_building import ModelBuildingPipeline
 from LCIC.pipeline.stage_03_model_training import ModelTrainingPipeline
+
+
 if __name__ == "__mian__":
     try:
         # Stage -1 for data ingestion/downloading

@@ -1,5 +1,5 @@
-from src.LCIC import logger
-from src.LCIC.config.model_training_configureation import ConfigurationManager
+from LCIC import logger
+from LCIC.config.model_training_configureation import ConfigurationManager
 from LCIC.components.model_training import Training
 
 
