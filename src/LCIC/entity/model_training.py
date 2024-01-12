@@ -1,10 +1,16 @@
 from dataclasses import dataclass
 from pathlib import Path
 
-
 @dataclass(frozen=True)
-class PreprocessConfig:
-    path: str
+class ModelTrainingConfig:
+    root_dir: Path
+    model_path: Path
+    trained_model_path: Path
+    model_name: str
+
+    dataset_path: str
+    batch_size: int
+    seed: int
     rescale: float
     shear_range: float
     zoom_range: float
@@ -13,5 +19,3 @@ class PreprocessConfig:
     horizontal_flip: bool
     validation_split: float
     fill_mode: str
-    batch_size: int
-    seed: int
