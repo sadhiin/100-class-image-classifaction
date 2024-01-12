@@ -15,8 +15,8 @@ class ConfigurationManager:
 
     def get_model_train_config(self) -> ModelTrainingConfig:
 
-        preprocessed_cfg = self.config.data_processing
         model_cfg = self.config.model_training
+        preprocessed_cfg = self.config.model_training.data_processing
         self.params = self.params[model_cfg.model_name]
 
         logger.info(f"Model configurations: ---> {model_cfg}")
@@ -30,8 +30,7 @@ class ConfigurationManager:
             trained_model_path=Path(model_cfg.trained_model_path),
             model_name=model_cfg.model_name,
 
-            dataset_path=input(
-                "Enter the data path: ") if preprocessed_cfg.dataset_path is None else preprocessed_cfg.dataset_path,
+            dataset_path=input("Enter the data path: ") if preprocessed_cfg.dataset_path is None or preprocessed_cfg.dataset_path=='' else preprocessed_cfg.dataset_path,
             batch_size=preprocessed_cfg.batch_size,
             seed=preprocessed_cfg.seed,
             rescale=preprocessed_cfg.rescale,
@@ -42,6 +41,5 @@ class ConfigurationManager:
             horizontal_flip=preprocessed_cfg.horizontal_flip,
             validation_split=preprocessed_cfg.validation_split,
             fill_mode=preprocessed_cfg.fill_mode,
-
         )
         return _cfg

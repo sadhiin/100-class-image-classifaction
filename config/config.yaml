@@ -12,19 +12,20 @@ data_ingestion:
 
 base_model:
   root_dir: artifacts/base_model
+  model_name: VGG16 # UPPER CASE NAME OF THE MODEL to extract model parameter form params.yaml
   base_model_path: artifacts/base_model/base_model.keras  # this is the path of the pretrained model loaded from the tf-keras
   updated_base_model_path: artifacts/base_model/pretrained_model.keras # this is the customized model based on dataset classes
 
 
 
 model_training:
+  model_name: VGG16 # UPPER CASE NAME OF THE MODEL to extract model parameter form params.yaml
   root_dir: artifacts/training
   model_path: artifacts/base_model/pretrained_model.keras
   trained_model_path: artifacts/training/trained_model.keras
-  model_name: VGG16 # UPPER CASE NAME OF THE MODEL to extract model parameter form params.yaml
 
   data_processing:
-    dataset_path: ""
+    dataset_path: artifacts/data/sports-classification/test
     batch_size: 16
     seed: 42
     rescale: 1./255

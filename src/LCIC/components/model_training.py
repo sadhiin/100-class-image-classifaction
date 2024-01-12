@@ -28,7 +28,6 @@ class DataPreprocessing():
             horizontal_flip=self.config.horizontal_flip,
             validation_split=self.config.validation_split,
             fill_mode=self.config.fill_mode,
-            batch_size=self.config.batch_size
         )
 
         _test_datagen = ImageDataGenerator(rescale=1./255)
@@ -42,7 +41,7 @@ class DataPreprocessing():
             directory=self.config.dataset_path,
             target_size=self.params.IMAGE_SIZE,
             color_mode='rgb',
-            classes=self.params.CLASSES,
+            # classes=self.params.CLASSES,
             class_mode='categorical',
             batch_size=self.config.batch_size,
             shuffle=True,
@@ -55,7 +54,7 @@ class DataPreprocessing():
             directory=self.config.dataset_path,
             target_size=self.params.IMAGE_SIZE,
             color_mode='rgb',
-            classes=self.params.CLASSES,
+            # classes=self.params.CLASSES,
             class_mode='categorical',
             batch_size=self.config.batch_size,
             interpolation='nearest',
@@ -73,13 +72,13 @@ class Training():
                  params_path: Path = PARAMS_FILE_PATH) -> None:
         self.config = config
         self.params = read_yaml(params_path)
+        self.params = self.params[self.config.model_name]
 
-        self.training_data, self.validation_data = DataPreprocessing(
-            config=self.config).get_train_and_valid_set()
+        self.training_data, self.validation_data = DataPreprocessing(config=self.config).get_train_and_valid_set()
 
         self.trains_steps = self.training_data.samples // self.config.batch_size
         self.validation_steps = self.validation_data.samples // self.config.batch_size
-        self.model = tf.keras.load_model(self.config.model_path)
+        self.model = tf.keras.models.load_model(self.config.model_path)
         self.history = None
 
     @staticmethod
@@ -87,11 +86,11 @@ class Training():
         model.save(path)
 
     def __getoptimizer(self, optimizer_name: str):
-        if optimizer_name == "adam":
+        if optimizer_name.lower() == "adam":
             return tf.keras.optimizers.Adam(learning_rate=self.params.LEARNING_RATE, beta_1=0.9, beta_2=0.999, amsgrad=False)
-        elif optimizer_name == "rmsprop":
+        elif optimizer_name.lower() == "rmsprop":
             return tf.keras.optimizers.RMSprop(learning_rate=self.params.LEARNING_RATE, rho=0.9)
-        elif optimizer_name == "sgd":
+        elif optimizer_name.lower() == "sgd":
             return tf.keras.optimizers.SGD(learning_rate=self.params.LEARNING_RATE, momentum=0.0, nesterov=False)
 
     def train(self, callbacks_list: list = [], save_model: bool = True, gethistory: bool = True):
@@ -103,6 +102,7 @@ class Training():
                        value in self.training_data.class_indices.items()}
 
         save_json(path=CLASS_INDEX_PATH, data=classvalues)
+        
         self.history = self.model.fit(self.training_data,
                                       steps_per_epoch=self.trains_steps,
                                       epochs=self.params.EPOCHS,
