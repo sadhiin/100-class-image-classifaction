@@ -2,6 +2,8 @@ import os
 import time
 import tensorflow as tf
 from LCIC import logger
+from livelossplot import PlotLossesKerasTF
+
 
 def get_log_path(DIR="Tensorboard/logs/"):
     log_file_name = time.strftime("TB_log_%Y_%m_%d-%H_%M_%S")
@@ -14,8 +16,7 @@ def get_log_path(DIR="Tensorboard/logs/"):
 
 def get_callbacks():
     log_path = get_log_path()
-    # os.makedirs('checkpoints', exist_ok=True)
-    # os.path.join()
+
     file_name = os.path.join("artifacts/training/checkpoints", "model_ckpt.h5")
     callbacks = [
         tf.keras.callbacks.ModelCheckpoint(
@@ -24,7 +25,14 @@ def get_callbacks():
         tf.keras.callbacks.EarlyStopping(
             monitor='val_loss', patience=5, restore_best_weights=True),
 
-        tf.keras.callbacks.TensorBoard(log_dir=log_path, histogram_freq=1)
+        tf.keras.callbacks.TensorBoard(log_dir=log_path, histogram_freq=1),
+        PlotLossesKerasTF()
     ]
+    return callbacks
 
+
+def get_val_callbacks():
+    callbacks = [
+        PlotLossesKerasTF()
+    ]
     return callbacks

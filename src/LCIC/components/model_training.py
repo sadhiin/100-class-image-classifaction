@@ -52,7 +52,7 @@ class DataPreprocessing():
         )
 
         validation_set = val_datagen.flow_from_directory(
-            directory= os.path.join(self.config.dataset_path, 'valid'),
+            directory=os.path.join(self.config.dataset_path, 'valid'),
             target_size=self.params.IMAGE_SIZE[:-1],
             color_mode='rgb',
             class_mode='categorical',
@@ -72,7 +72,8 @@ class Training():
         self.params = read_yaml(params_path)
         self.params = self.params[self.config.model_name]
 
-        self.training_data, self.validation_data = DataPreprocessing(config=self.config).get_train_and_valid_set()
+        self.training_data, self.validation_data = DataPreprocessing(
+            config=self.config).get_train_and_valid_set()
 
         self.trains_steps = self.training_data.samples // self.config.batch_size
         self.validation_steps = self.validation_data.samples // self.config.batch_size
@@ -91,7 +92,7 @@ class Training():
         elif optimizer_name.lower() == "sgd":
             return tf.keras.optimizers.SGD(learning_rate=self.params.LEARNING_RATE, momentum=0.0, nesterov=False)
 
-    def train(self, callbacks_list: list = get_callbacks() , save_model: bool = True, gethistory: bool = True):
+    def train(self, callbacks_list: list = get_callbacks(), save_model: bool = True, gethistory: bool = True):
 
         self.model.compile(optimizer=self.__getoptimizer(self.params.OPTIMIZER),
                            loss=tf.keras.losses.CategoricalCrossentropy(),
@@ -100,7 +101,7 @@ class Training():
                        value in self.training_data.class_indices.items()}
 
         save_json(path=CLASS_INDEX_PATH, data=classvalues)
-        
+
         self.history = self.model.fit(self.training_data,
                                       steps_per_epoch=self.trains_steps,
                                       epochs=self.params.EPOCHS,

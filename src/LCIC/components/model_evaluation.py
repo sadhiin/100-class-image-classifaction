@@ -1,17 +1,17 @@
+import mlflow
+import mlflow.keras
 import tensorflow as tf
 from LCIC.constants import *
-from LCIC.config.model_eval_configuration import EvalConfigurationManager
+from urllib.parse import urlparse
+from LCIC.utils.common import save_json
+from LCIC.utils.keras_callbacks import get_val_callbacks
+from LCIC.entity.model_val_entity import EvaluationConfig
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
-class EvaluationDataPreprocessing():
-    def __init__(self,
-                config: EvalConfigurationManager,
-                params_path: Path = PARAMS_FILE_PATH):
-        self.config = config
-        self.params = read_yaml(params_path)
-        # setting the params for to have the target size and classes of the model
-        self.params = self.params[self.config.model_name]
 
+class EvaluationDataPreprocessing():
+    def __init__(self, config: EvaluationConfig):
+        self.config = config
         self.test_dataset = None
 
     def __generator(self):
@@ -21,36 +21,38 @@ class EvaluationDataPreprocessing():
     def get_test_data_set(self):
         test_generator = self.__generator()
 
-        test_set = test_gen.flow_from_directory(
+        test_set = test_generator.flow_from_directory(
             directory=Path.joinpath(self.config.dataset_path, 'test'),
-            target_size=self.params.IMAGE_SIZE[:-1],
+            target_size=self.config.params_image_size[:-1],
             color_mode='rgb',
             class_mode='categorical',
-            batch_size=self.config.batch_size,
+            batch_size=self.config.params_batch_size,
         )
 
-        self.test_dataset = test_set 
+        self.test_dataset = test_set
         return self.test_dataset
 
 
 class ModelEvaluation:
-    def __init__(self, config: EvalConfigurationManager):
+    def __init__(self, config: EvaluationConfig):
         self.config = config
-        self.test_data = EvaluationDataPreprocessing(config=self.config).get_test_data_set()
+        self.test_data = EvaluationDataPreprocessing(
+            config=self.config).get_test_data_set()
         self.model = None
         self.score = None
 
     @staticmethod
     def load_model(path: Path) -> tf.keras.Model:
         return tf.keras.models.load_model(path)
-    
+
     def save_score(self):
         scores = {'loss': self.score[0], 'accuracy': self.score[1]}
-        save_json(path=Path('reports/score.json'), data= scores)
-    
-    def evaluation(self):
+        save_json(path=Path('reports/score.json'), data=scores)
+
+    def run_evaluation(self):
         self.model = self.load_model(self.config.model_path)
-        self.score = model.evaluate(self.test_data, batch_size=self.config.batch_size, verbose=1)
+        self.score = self.model.evaluate(
+            self.test_data, batch_size=self.config.params_batch_size, verbose="1", callbacks=get_val_callbacks())
         self.save_score()
 
     def log_into_mlflow(self):
@@ -60,7 +62,8 @@ class ModelEvaluation:
         with mlflow.start_run():
             print(self.config.all_params)
             mlflow.log_params(self.config.all_params)
-            mlflow.log_metrics({'loss': self.score[0], 'accuracy':self.score[1]})
+            mlflow.log_metrics(
+                {'loss': self.score[0], 'accuracy': self.score[1]})
 
             # model registry
             if tracking_url_type_store != 'file':
@@ -68,6 +71,7 @@ class ModelEvaluation:
                 # There are other ways to use the model registry, which depends on the user case,
                 # please refer to the doc for more information:
                 # at https://mlflow.org/docs/latest/model-registry.html#api-workflow
-                mlflow.keras.log_model(self.model, 'model', registered_model_name=str(self.config.model_name))
+                mlflow.keras.log_model(
+                    self.model, 'model', registered_model_name=str(self.config.model_name))
             else:
                 mlflow.keras.log_model(self.model, "model")
