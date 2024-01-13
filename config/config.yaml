@@ -37,4 +37,10 @@ model_training:
     fill_mode: nearest
 
   model_eval:
+    model_name: VGG16
+    model_path: artifacts/training/trained_model.keras
     dataset_path: artifacts/data/sports-classification
+    all_params: dict
+    mlflow_uri: https://dagshub.com/sadhiin/
+    params_image_size: list
+    params_batch_size: int

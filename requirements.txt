@@ -9,4 +9,5 @@ ensure==1.0.4
 notebook
 dvc
 opendatasets
+livelossplot
 -e .

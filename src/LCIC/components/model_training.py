@@ -3,6 +3,7 @@ import tensorflow as tf
 from LCIC import logger
 from LCIC.constants import *
 from LCIC.utils.common import read_yaml, save_json
+from LCIC.utils.keras_callbacks import get_callbacks
 from LCIC.entity.model_training_entity import ModelTrainingConfig
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
@@ -90,7 +91,7 @@ class Training():
         elif optimizer_name.lower() == "sgd":
             return tf.keras.optimizers.SGD(learning_rate=self.params.LEARNING_RATE, momentum=0.0, nesterov=False)
 
-    def train(self, callbacks_list: list = [], save_model: bool = True, gethistory: bool = True):
+    def train(self, callbacks_list: list = get_callbacks() , save_model: bool = True, gethistory: bool = True):
 
         self.model.compile(optimizer=self.__getoptimizer(self.params.OPTIMIZER),
                            loss=tf.keras.losses.CategoricalCrossentropy(),
