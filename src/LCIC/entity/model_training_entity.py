@@ -11,7 +11,6 @@ class ModelTrainingConfig:
     dataset_path: str
     batch_size: int
     seed: int
-    rescale: float
     shear_range: float
     zoom_range: float
     width_shift_range: float

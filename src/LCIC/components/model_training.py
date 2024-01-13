@@ -1,8 +1,9 @@
+import os
 import tensorflow as tf
 from LCIC import logger
 from LCIC.constants import *
 from LCIC.utils.common import read_yaml, save_json
-from LCIC.entity.model_training import ModelTrainingConfig
+from LCIC.entity.model_training_entity import ModelTrainingConfig
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 
@@ -20,7 +21,7 @@ class DataPreprocessing():
 
     def __generator(self):
         _train_datagen = ImageDataGenerator(
-            rescale=self.config.rescale,
+            rescale=1./255,
             shear_range=self.config.shear_range,
             zoom_range=self.config.zoom_range,
             width_shift_range=self.config.width_shift_range,
@@ -38,10 +39,9 @@ class DataPreprocessing():
         train_datagen, val_datagen = self.__generator()
 
         training_set = train_datagen.flow_from_directory(
-            directory=self.config.dataset_path,
-            target_size=self.params.IMAGE_SIZE,
+            directory=os.path.join(self.config.dataset_path, 'train'),
+            target_size=self.params.IMAGE_SIZE[:-1],
             color_mode='rgb',
-            # classes=self.params.CLASSES,
             class_mode='categorical',
             batch_size=self.config.batch_size,
             shuffle=True,
@@ -51,14 +51,11 @@ class DataPreprocessing():
         )
 
         validation_set = val_datagen.flow_from_directory(
-            directory=self.config.dataset_path,
-            target_size=self.params.IMAGE_SIZE,
+            directory= os.path.join(self.config.dataset_path, 'valid'),
+            target_size=self.params.IMAGE_SIZE[:-1],
             color_mode='rgb',
-            # classes=self.params.CLASSES,
             class_mode='categorical',
             batch_size=self.config.batch_size,
-            interpolation='nearest',
-            subset="validation"
         )
 
         self.train_generator = training_set

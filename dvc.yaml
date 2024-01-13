@@ -1,34 +1,34 @@
-# stages:
-#   data_ingestion:
-#     cmd: python src/LCIC/pipeline/stage_01_data_ingestion.py
-#     deps:
-#       - config/config.yaml
-#       - src/LCIC/constants/__init__.py
-#       - src/LCIC/config/configuration.py
-#       - src/LCIC/entity/data_config_entity.py
-#       - src/LCIC/components/data_ingestion.py
-#     outs:
-#       - artifacts/data/sports-classification
+stages:
+  data_ingestion:
+    cmd: python src/LCIC/pipeline/stage_01_data_ingestion.py
+    deps:
+      - config/config.yaml
+      - src/LCIC/constants/__init__.py
+      - src/LCIC/config/configuration.py
+      - src/LCIC/entity/data_config_entity.py
+      - src/LCIC/components/data_ingestion.py
+    outs:
+      - artifacts/data/sports-classification
+      
+  base_model_building:
+    cmd: python src/LCIC/pipeline/stage_02_base_model_building.py
+    deps:
+      - config/config.yaml
+      - src/LCIC/constants/__init__.py
+      - src/LCIC/entity/base_model_entity.py
+      - src/LCIC/config/base_model_configuration.py
+      - src/LCIC/components/model_builder.py
+    outs:
+      - artifacts/base_model/base_model.keras
+      - artifacts/base_model/pretrained_model.keras
 
-#   base_model_building:
-#     cmd: python src/LCIC/pipeline/stage_02_base_model_building.py
-#     deps:
-#       - config/config.yaml
-#       - src/LCIC/constants/__init__.py
-#       - src/LCIC/entity/base_model_entity.py
-#       - src/LCIC/config/base_model_configuration.py
-#       - src/LCIC/components/model_builder.py
-#     outs:
-#       - artifacts/base_model/base_model.keras
-#       - artifacts/base_model/pretrained_model.keras
-
-#   model_training:
-#     cmd: python src/LCIC/pipeline/stage_03_model_training.py
-#     deps:
-#       - config/config.yaml
-#       - src/LCIC/constants/__init__.py
-#       - src/LCIC/entity/model_training_entity.py
-#       - src/LCIC/config/model_training_configureation.py
-#       - src/LCIC/components/model_training.py
-#     outs:
-#       - artifacts/training/trained_model.keras
+  model_training:
+    cmd: python src/LCIC/pipeline/stage_03_model_training.py
+    deps:
+      - config/config.yaml
+      - src/LCIC/constants/__init__.py
+      - src/LCIC/entity/model_training_entity.py
+      - src/LCIC/config/model_training_configureation.py
+      - src/LCIC/components/model_training.py
+    outs:
+      - artifacts/training/trained_model.keras

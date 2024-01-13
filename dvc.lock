@@ -1,0 +1,91 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python src/LCIC/pipeline/stage_01_data_ingestion.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: 9dd79f936991bda5952ecfaa45e46ab2
+      size: 1515
+    - path: src/LCIC/components/data_ingestion.py
+      hash: md5
+      md5: 62a1f8e428614214a70665c72c2d7609
+      size: 816
+    - path: src/LCIC/config/configuration.py
+      hash: md5
+      md5: c8a6139662d6b49a1eba7e3d55b41dbe
+      size: 964
+    - path: src/LCIC/constants/__init__.py
+      hash: md5
+      md5: 336af70d0ebed4bf4c1e8d05c1a1367c
+      size: 161
+    - path: src/LCIC/entity/data_config_entity.py
+      hash: md5
+      md5: 0be1657ad2a38c01c5aed89c21b86388
+      size: 176
+    outs:
+    - path: artifacts/data/sports-classification
+      hash: md5
+      md5: 9db1aa55a68db0d895524537baf00f8c.dir
+      size: 452856506
+      nfiles: 14495
+  base_model_building:
+    cmd: python src/LCIC/pipeline/stage_02_base_model_building.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: 9dd79f936991bda5952ecfaa45e46ab2
+      size: 1515
+    - path: src/LCIC/components/model_builder.py
+      hash: md5
+      md5: 4150e774a611302eaa99999f5c13752f
+      size: 6958
+    - path: src/LCIC/config/base_model_configuration.py
+      hash: md5
+      md5: a1c795a0f4eed6713419b381a625009b
+      size: 1581
+    - path: src/LCIC/constants/__init__.py
+      hash: md5
+      md5: 336af70d0ebed4bf4c1e8d05c1a1367c
+      size: 161
+    - path: src/LCIC/entity/base_model_entity.py
+      hash: md5
+      md5: a012e2b0248fcdcf7b70a5c8bdd4b1ff
+      size: 412
+    outs:
+    - path: artifacts/base_model/base_model.keras
+      hash: md5
+      md5: 85f2bad2231a93250cfaf0fedfdbcab2
+      size: 58920816
+    - path: artifacts/base_model/pretrained_model.keras
+      hash: md5
+      md5: 17599675ae07bc7ad7aa1a0b1e0db10f
+      size: 59659608
+  model_training:
+    cmd: python src/LCIC/pipeline/stage_03_model_training.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: 9dd79f936991bda5952ecfaa45e46ab2
+      size: 1515
+    - path: src/LCIC/components/model_training.py
+      hash: md5
+      md5: 8d0f10957d562bf13d6c2d22f7391da3
+      size: 4639
+    - path: src/LCIC/config/model_training_configureation.py
+      hash: md5
+      md5: 86ab64892f5b78db649e82f2e552e83e
+      size: 1918
+    - path: src/LCIC/constants/__init__.py
+      hash: md5
+      md5: 336af70d0ebed4bf4c1e8d05c1a1367c
+      size: 161
+    - path: src/LCIC/entity/model_training_entity.py
+      hash: md5
+      md5: 7fa8f4cf58096d14b0e49c967ba68ec8
+      size: 434
+    outs:
+    - path: artifacts/training/trained_model.keras
+      hash: md5
+      md5: da77db6cd390c7abc830898a2df3ec30
+      size: 164938687

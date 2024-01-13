@@ -25,10 +25,9 @@ model_training:
   trained_model_path: artifacts/training/trained_model.keras
 
   data_processing:
-    dataset_path: artifacts/data/sports-classification/test
+    dataset_path: artifacts/data/sports-classification
     batch_size: 16
     seed: 42
-    rescale: 1./255
     shear_range: 0.2
     zoom_range: 0.2
     width_shift_range: 0.2
@@ -36,3 +35,6 @@ model_training:
     horizontal_flip: True
     validation_split: 0.2
     fill_mode: nearest
+
+  model_eval:
+    dataset_path: artifacts/data/sports-classification

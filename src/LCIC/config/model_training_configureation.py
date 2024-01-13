@@ -1,7 +1,7 @@
 from LCIC import logger
 from LCIC.constants import *
 from LCIC.utils.common import read_yaml, create_directories
-from LCIC.entity.model_training import ModelTrainingConfig
+from LCIC.entity.model_training_entity import ModelTrainingConfig
 
 
 class ConfigurationManager:
@@ -33,7 +33,6 @@ class ConfigurationManager:
             dataset_path=input("Enter the data path: ") if preprocessed_cfg.dataset_path is None or preprocessed_cfg.dataset_path=='' else preprocessed_cfg.dataset_path,
             batch_size=preprocessed_cfg.batch_size,
             seed=preprocessed_cfg.seed,
-            rescale=preprocessed_cfg.rescale,
             shear_range=preprocessed_cfg.shear_range,
             zoom_range=preprocessed_cfg.zoom_range,
             width_shift_range=preprocessed_cfg.width_shift_range,
