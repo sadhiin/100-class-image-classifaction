@@ -28,7 +28,19 @@ stages:
       - config/config.yaml
       - src/LCIC/constants/__init__.py
       - src/LCIC/entity/model_training_entity.py
-      - src/LCIC/config/model_training_configureation.py
+      - src/LCIC/config/model_training_configuration.py
       - src/LCIC/components/model_training.py
     outs:
       - artifacts/training/trained_model.keras
+  
+  model_evaluation:
+    cmd: python src/LCIC/pipeline/stage_04_model_eval.py
+    deps:
+      - config/config.yaml
+      - src/LCIC/constants/__init__.py
+      - src/LCIC/entity/model_val_entity.py
+      - src/LCIC/config/model_eval_configuration.py
+      - src/LCIC/components/model_evaluation.py
+    metrics:
+    - reports/score.json:
+        cache: false

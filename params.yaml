@@ -3,7 +3,7 @@ VGG16:
   IMAGE_SIZE: [224,224,3] # as per vgg
   BATCH_SIZE: 16
   INCLUDE_TOP: False
-  EPOCHS: 3
+  EPOCHS: 25
   CLASSES: 100
   WEIGHTS: imagenet
   OPTIMIZER: Adam

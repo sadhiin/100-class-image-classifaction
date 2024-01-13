@@ -19,7 +19,7 @@ class EvalConfigurationManager:
         eval_cfg = EvaluationConfig(
             model_name=self.config.model_name,
             model_path=self.config.model_path,
-            dataset_path=self.config.model_path,
+            dataset_path=self.config.dataset_path,
             all_params=self.params,
             mlflow_uri=self.config.mlflow_uri,
             params_image_size=self.params.IMAGE_SIZE,

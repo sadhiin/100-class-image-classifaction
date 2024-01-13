@@ -5,8 +5,8 @@ stages:
     deps:
     - path: config/config.yaml
       hash: md5
-      md5: 9dd79f936991bda5952ecfaa45e46ab2
-      size: 1515
+      md5: 7cb24c50403dce53c07291d05dec7076
+      size: 1736
     - path: src/LCIC/components/data_ingestion.py
       hash: md5
       md5: 62a1f8e428614214a70665c72c2d7609
@@ -34,8 +34,8 @@ stages:
     deps:
     - path: config/config.yaml
       hash: md5
-      md5: 9dd79f936991bda5952ecfaa45e46ab2
-      size: 1515
+      md5: 7cb24c50403dce53c07291d05dec7076
+      size: 1736
     - path: src/LCIC/components/model_builder.py
       hash: md5
       md5: 4150e774a611302eaa99999f5c13752f
@@ -55,24 +55,24 @@ stages:
     outs:
     - path: artifacts/base_model/base_model.keras
       hash: md5
-      md5: 85f2bad2231a93250cfaf0fedfdbcab2
+      md5: 7ad4c39c81b0d68956e1343b7f3bf587
       size: 58920816
     - path: artifacts/base_model/pretrained_model.keras
       hash: md5
-      md5: 17599675ae07bc7ad7aa1a0b1e0db10f
-      size: 59659608
+      md5: 8a42b89b5a10c07c05793a77eecfa7d3
+      size: 59659607
   model_training:
     cmd: python src/LCIC/pipeline/stage_03_model_training.py
     deps:
     - path: config/config.yaml
       hash: md5
-      md5: 9dd79f936991bda5952ecfaa45e46ab2
-      size: 1515
+      md5: 7cb24c50403dce53c07291d05dec7076
+      size: 1736
     - path: src/LCIC/components/model_training.py
       hash: md5
-      md5: 8d0f10957d562bf13d6c2d22f7391da3
-      size: 4639
-    - path: src/LCIC/config/model_training_configureation.py
+      md5: 6b082bd7c3c05b5a0c235279beb07dca
+      size: 4709
+    - path: src/LCIC/config/model_training_configuration.py
       hash: md5
       md5: 86ab64892f5b78db649e82f2e552e83e
       size: 1918
@@ -87,5 +87,33 @@ stages:
     outs:
     - path: artifacts/training/trained_model.keras
       hash: md5
-      md5: da77db6cd390c7abc830898a2df3ec30
-      size: 164938687
+      md5: 4a6bad8d15888400cc2a439705c43bff
+      size: 164936151
+  model_evaluation:
+    cmd: python src/LCIC/pipeline/stage_04_model_eval.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: 7cb24c50403dce53c07291d05dec7076
+      size: 1736
+    - path: src/LCIC/components/model_evaluation.py
+      hash: md5
+      md5: e8a1a4a9c45a7e5d32a0854f425f749f
+      size: 2857
+    - path: src/LCIC/config/model_eval_configuration.py
+      hash: md5
+      md5: 8a51a6d9afd1814dfb76a668ee63c9b5
+      size: 958
+    - path: src/LCIC/constants/__init__.py
+      hash: md5
+      md5: 336af70d0ebed4bf4c1e8d05c1a1367c
+      size: 161
+    - path: src/LCIC/entity/model_val_entity.py
+      hash: md5
+      md5: 4299f42602f8a9ef02e4282f8d0d0728
+      size: 267
+    outs:
+    - path: reports/score.json
+      hash: md5
+      md5: 53d88e046111f32d29d26ca40ec30342
+      size: 70
