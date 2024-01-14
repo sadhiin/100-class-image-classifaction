@@ -25,6 +25,7 @@ stages:
   model_training:
     cmd: python src/LCIC/pipeline/stage_03_model_training.py
     deps:
+      - params.yaml
       - config/config.yaml
       - src/LCIC/constants/__init__.py
       - src/LCIC/entity/model_training_entity.py
@@ -36,6 +37,7 @@ stages:
   model_evaluation:
     cmd: python src/LCIC/pipeline/stage_04_model_eval.py
     deps:
+      - params.yaml
       - config/config.yaml
       - src/LCIC/constants/__init__.py
       - src/LCIC/entity/model_val_entity.py

@@ -162,3 +162,4 @@ cython_debug/
 *.hdf5
 *.keras
 Tensorboard_logs/
+mlruns/

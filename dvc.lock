@@ -68,6 +68,10 @@ stages:
       hash: md5
       md5: 7cb24c50403dce53c07291d05dec7076
       size: 1736
+    - path: params.yaml
+      hash: md5
+      md5: 5ea6fc375f89e8cf629dda20a3d9aa93
+      size: 633
     - path: src/LCIC/components/model_training.py
       hash: md5
       md5: 6b082bd7c3c05b5a0c235279beb07dca
@@ -87,7 +91,7 @@ stages:
     outs:
     - path: artifacts/training/trained_model.keras
       hash: md5
-      md5: 4a6bad8d15888400cc2a439705c43bff
+      md5: 2d4515729a41caf9d32f26a1c3cd274e
       size: 164936151
   model_evaluation:
     cmd: python src/LCIC/pipeline/stage_04_model_eval.py
@@ -96,6 +100,10 @@ stages:
       hash: md5
       md5: 7cb24c50403dce53c07291d05dec7076
       size: 1736
+    - path: params.yaml
+      hash: md5
+      md5: 5ea6fc375f89e8cf629dda20a3d9aa93
+      size: 633
     - path: src/LCIC/components/model_evaluation.py
       hash: md5
       md5: e8a1a4a9c45a7e5d32a0854f425f749f
@@ -115,5 +123,5 @@ stages:
     outs:
     - path: reports/score.json
       hash: md5
-      md5: 53d88e046111f32d29d26ca40ec30342
-      size: 70
+      md5: ecbc88654bb3ca2860d74916987144bd
+      size: 71
